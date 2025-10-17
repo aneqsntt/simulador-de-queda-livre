@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Queda Livre</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #ffe4e6, #f8f0fc);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    margin:0;
+    padding:20px;
+    color:#4b2e83;
+  }
+
+  h1 { margin-bottom:16px; font-weight:700; color:#d63384; }
+
+  .container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+  }
+
+  input {
+    padding:8px 12px;
+    border-radius:10px;
+    border:1px solid #d9a8c4;
+    background:#fff0f6;
+    color:#9f4d8a;
+    width:140px;
+    font-weight:600;
+  }
+
+  button{
+    padding:8px 14px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    color:white;
+    background:linear-gradient(90deg,#f5c0d0,#d63384);
+  }
+
+  button:hover{opacity:0.85;}
+
+  #resultado{
+    margin-top:12px;
+    padding:10px;
+    border:1px solid #f5c0d0;
+    border-radius:10px;
+    width:220px;
+    text-align:center;
+    background: rgba(255,240,250,0.6);
+    color:#9f4d8a;
+    font-weight:600;
+  }
+
+  #shaft{
+    width:140px;
+    height:320px;
+    background: linear-gradient(to bottom,#fff0f6,#f8e1f3);
+    border-left:2px solid #d63384;
+    border-right:2px solid #eec7e0;
+    position:relative;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow: inset 0 0 15px rgba(214,51,132,0.3);
+  }
+
+  .ball{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background: linear-gradient(180deg,#ffb6c1,#d63384);
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    box-shadow:0 3px 10px rgba(214,51,132,0.4);
+  }
+</style>
+</head>
+<body>
+<h1>Simulador de Queda Livre</h1>
+<div class="container">
+  <input type="number" id="altura" placeholder="Altura (m)">
+  <button id="simular">Simular</button>
+  <button id="reset">Resetar</button>
+  <div id="resultado">Digite uma altura e clique em simular</div>
+  <div id="shaft">
+    <div class="ball" id="bola"></div>
+  </div>
+</div>
+
+<script>
+const bola = document.getElementById('bola');
+const resultado = document.getElementById('resultado');
+const alturaInput = document.getElementById('altura');
+const simularBtn = document.getElementById('simular');
+const resetBtn = document.getElementById('reset');
+
+function simular(){
+  const h = parseFloat(alturaInput.value);
+  if(isNaN(h) || h <= 0){
+    resultado.textContent = 'Digite uma altura válida';
+    return;
+  }
+  const g = 9.8; // gravidade terrestre
+  const tempo = Math.sqrt(2*h/g);
+  const vel = g*tempo;
+
+  resultado.innerHTML = `Tempo: ${tempo.toFixed(2)} s<br>Velocidade final: ${vel.toFixed(2)} m/s`;
+
+  const maxPx = 280;
+  const topFinal = Math.min(maxPx, h*maxPx/100);
+  bola.style.top = `${10 + topFinal}px`;
+}
+
+function reset(){
+  bola.style.top = '10px';
+  resultado.textContent='Digite uma altura e clique em simular';
+}
+
+simularBtn.addEventListener('click', simular);
+resetBtn.addEventListener('click', reset);
+</script>
+</body>
+</html>
