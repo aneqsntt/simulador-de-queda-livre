@@ -16,4 +16,4 @@ O objetivo é criar uma experiência simples e educativa, unindo programação e
 - JavaScript  
 
 ## Sobre o projeto
-Criado por **Ane**, estudante de Física, com interesse em programação científica e desenvolvimento de projetos interativos para aprendizado.
+Criado por mim, estudante de Física, com interesse em programação científica e desenvolvimento de projetos interativos para aprendizado.
